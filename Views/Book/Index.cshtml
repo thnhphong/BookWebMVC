@@ -1,0 +1,153 @@
+﻿@model PagedList.IPagedList<Project3.Models.book>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>HUTECH LIBRARY</h2>
+@Html.ActionLink("Add Book", "Create", "Book", new { @class = "btn btn-sm btn-outline-secondary" })
+@using (Html.BeginForm("Index", "Book", FormMethod.Get, new { @class = "form-inline"}))
+    {
+        <div class="form-group form-inline" style="display: flex">
+            <input type="text" class="form-control col-md-10" value="@ViewBag.Keyword" name="searchString" placeholder="Enter book title"/>
+            <input type="submit" class="btn btn-info" value="Search" style="margin-left:inherit 10px;" />
+        </div>
+        <br>
+    } 
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel panel-heading">
+                    @item.book_title
+                    @Html.ActionLink("Edit", "Edit", "Book", new { id = item.book_id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                </div>
+                <div class="panel-body">
+                    <p><strong>Price: </strong>@item.price</p>
+                    <p><strong>Date Update: </strong>@item.update_date</p>
+                    <p><strong>Quantity in stock: </strong>@item.quantity_in_stock</p>
+                    <p><img class="rounded-2" width="250" src="~/Content/images/@item.image" alt="hinh thumbnail"></p>
+                </div>
+                <div class="panel-footer clearfix">
+                    <div class="pull-right">
+                        @if (item.quantity_in_stock == 0)
+                        {
+                            <a class="btn btn-danger">Sold out</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success" href="@Url.Action("AddCart", "Cart", new { id = item.book_id, strURL = Request.Url.ToString() })">Order</a>
+                        }
+                        @Html.ActionLink("Read more...", "Detail", "Book", new { id = item.book_id }, new { @class = "btn btn-secondary" })
+                        @Html.ActionLink("Delete", "Delete", "Book", new { id = item.book_id }, new { @class = "btn btn-secondary" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+</div>
+<div class="row mt-1 d-flex justify-content-center">
+    <!-- Phân trang + Nút Add Book -->
+    <div class="col-12 mb-3 d-flex justify-content-between align-items-center">
+        <div>
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        </div>
+        <div class="Menu">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+        </div>
+    </div>
+</div>
+<style>
+    .Menu li {
+        display: inline;
+    }
+
+    #mau-nut a {
+        clear: both;
+        background-color: orange;
+        color: snow;
+    }
+
+        #mau-nut a:hover {
+            background-color: darkcyan;
+            color: snow;
+        }
+
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+        .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style-type: none;
+        padding: 0;
+        margin: 16px 0;
+        gap: 8px; /* Spacing between pages */
+    }
+
+    .pagination a {
+        color: black;
+        padding: 8px 16px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+        border-radius: 4px; /* Rounded corners */
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Page number hover effect */
+    .pagination a:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Active page (current page) */
+    .pagination li.active a {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+
+    /* Optional: Previous and Next links */
+    .pagination li a.prev,
+    .pagination li a.next {
+        font-weight: bold;
+    }
+
+    /* Optional: Disabled state for prev/next */
+    .pagination li.disabled a {
+        color: #ccc;
+        pointer-events: none; /* Disable clicking */
+        background-color: #f9f9f9;
+    }
+
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var maxLength = 100;
+
+        $(".show-read-more").each(function () {
+            var myStr = $(this).text();
+            if ($.trim(myStr).length > maxLength) {
+                var newStr = myStr.substring(0, maxLength);
+                var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+
+                $(this).empty().html(newStr);
+                $(this).append('<a href="javascript:void(0);" class="read-more">read continue...</a>');
+                $(this).append('<span class="more-text">' + removedStr + '</span>');
+            }
+        });
+
+        $(".read-more").click(function () {
+            $(this).siblings(".more-text").contents().unwrap();
+            $(this).remove();
+        });
+    });
+</script>

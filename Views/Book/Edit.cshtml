@@ -1,0 +1,88 @@
+﻿@model Project3.Models.book
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Book", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.book_id)
+
+    <div class="form-horizontal">
+        <h4>Book</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.publisher_id)
+            @Html.EditorFor(model => model.publisher_id, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.book_title)
+            @Html.EditorFor(model => model.book_title, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.price)
+            @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <strong>Image</strong><br />
+            <input type="text" name="imagePath" id="imagePath" value="@Model.image" class="form-control" />
+            <img src="@Url.Content("~/Content/images/" + Model.image)" height="500" id="pictureUpload" />
+            <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+            <input type="button" id="btnUpload" value="Choose Image" class="btn btn-success" />
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.quantity_in_stock)
+            @Html.EditorFor(model => model.quantity_in_stock, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.update_date)
+            @Html.EditorFor(model => model.update_date, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.description)
+            @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#btnUpload').click(function () {
+                $('#fileUpload').trigger('click');
+            });
+
+            $('#fileUpload').change(function (event) {
+                var file = event.target.files[0];
+                if (file) {
+                    // Update image preview
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#pictureUpload').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+
+                    // ✅ Update the imagePath textbox with the file name (this is the fix)
+                    $('#imagePath').val(file.name);
+                }
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,138 @@
+﻿@model Project3.Models.book
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="page-title">Book Details</h2>
+
+<div class="detail-container">
+    <h4 class="section-title">Book Information</h4>
+    <hr />
+    <dl class="dl-horizontal detail-list">
+
+        <dt>Book Title:</dt>
+        <dd>@Html.DisplayFor(model => model.book_title)</dd>
+
+        <dt>Price:</dt>
+        <dd>@Html.DisplayFor(model => model.price)</dd>
+
+        <dt>Cover Image:</dt>
+        <dd>
+            <img src="@Url.Content("~/Content/images/" + Model.image)"
+                 alt="Book Image"
+                 class="book-image" />
+        </dd>
+
+        <dt>Quantity in Stock:</dt>
+        <dd>@Html.DisplayFor(model => model.quantity_in_stock)</dd>
+
+        <dt>Last Updated:</dt>
+        <dd>@Html.DisplayFor(model => model.update_date)</dd>
+
+        <dt>Description:</dt>
+        <dd class="description-text">@Html.DisplayFor(model => model.description)</dd>
+    </dl>
+</div>
+
+<div class="button-group">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.book_id }, new { @class = "btn btn-warning" })
+    <a href="@ViewBag.ReturnUrl" class="btn btn-primary">Back</a>
+ 
+</div>
+
+<style>
+    /* Basic Page Styling */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .page-title {
+        color: #2c3e50;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .detail-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #34495e;
+        margin-bottom: 15px;
+    }
+
+    /* Details List */
+    .detail-list dt {
+        font-weight: bold;
+        color: #555;
+        float: left;
+        clear: left;
+        width: 160px;
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    .detail-list dd {
+        margin-left: 180px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    /* Image Styling */
+    .book-image {
+        max-width: 200px;
+        max-height: 200px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    /* Description */
+    .description-text {
+        white-space: pre-wrap;
+    }
+
+    /* Button Group */
+    .button-group {
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        margin-right: 8px;
+    }
+
+    .btn-warning {
+        background-color: #f39c12;
+        color: white;
+    }
+
+        .btn-warning:hover {
+            background-color: #e67e22;
+        }
+
+    .btn-secondary {
+        background-color: #95a5a6;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+</style>

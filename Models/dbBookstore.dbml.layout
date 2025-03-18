@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="dbBookstore">
+  <DataContextMoniker Name="/dbBookstoreDataContext" />
+  <nestedChildShapes>
+    <classShape Id="01f19ebf-4f20-4e4f-9d44-2a1554bdc49b" absoluteBounds="0.75, 1.5, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/dbBookstoreDataContext/publisher" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3ee42fe0-0031-4a12-a62b-5e0379c7bc09" absoluteBounds="0.765, 1.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5f8b6729-14f0-4d99-8c3a-5459695a01d9" absoluteBounds="3.5, 1, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/dbBookstoreDataContext/book" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dad39fdc-9383-4ee2-bbfc-5a0317b6960d" absoluteBounds="3.515, 1.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 2.09699625651042); (3.5 : 2.09699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbBookstoreDataContext/publisher/publisher_book" />
+      <nodes>
+        <classShapeMoniker Id="01f19ebf-4f20-4e4f-9d44-2a1554bdc49b" />
+        <classShapeMoniker Id="5f8b6729-14f0-4d99-8c3a-5459695a01d9" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="fe8ceffc-3232-4ed4-ad5e-0d20528467a3" absoluteBounds="6.625, 3.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/dbBookstoreDataContext/orderdetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="79dddc9d-3294-4afc-908f-2409269a86b6" absoluteBounds="6.64, 3.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1a4d9ead-51f6-413b-9eb7-faee2177496b" absoluteBounds="3.5, 5.125, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/dbBookstoreDataContext/order" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f746eb4d-64cc-4dae-b675-db99750037bc" absoluteBounds="3.515, 5.585, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4414f797-7bd0-4dee-b4c5-40d6f0d9a59d" absoluteBounds="0.75, 5, 2, 2.3478011067708326">
+      <DataClassMoniker Name="/dbBookstoreDataContext/customer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="498c98cc-8df7-448c-8be6-4e71e30ffdd1" absoluteBounds="0.765, 5.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 2.1249995); (7.625 : 2.1249995); (7.625 : 3.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbBookstoreDataContext/book/book_orderdetail" />
+      <nodes>
+        <classShapeMoniker Id="5f8b6729-14f0-4d99-8c3a-5459695a01d9" />
+        <classShapeMoniker Id="fe8ceffc-3232-4ed4-ad5e-0d20528467a3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 6.10659912109375); (7.625 : 6.10659912109375); (7.625 : 4.82859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbBookstoreDataContext/order/order_orderdetail" />
+      <nodes>
+        <classShapeMoniker Id="1a4d9ead-51f6-413b-9eb7-faee2177496b" />
+        <classShapeMoniker Id="fe8ceffc-3232-4ed4-ad5e-0d20528467a3" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 6.10659912109375); (3.5 : 6.10659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbBookstoreDataContext/customer/customer_order" />
+      <nodes>
+        <classShapeMoniker Id="4414f797-7bd0-4dee-b4c5-40d6f0d9a59d" />
+        <classShapeMoniker Id="1a4d9ead-51f6-413b-9eb7-faee2177496b" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

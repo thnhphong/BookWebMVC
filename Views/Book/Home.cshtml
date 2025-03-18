@@ -1,0 +1,121 @@
+﻿@model PagedList.IPagedList<Project3.Models.book>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Home</h2>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel panel-heading">
+                    @item.book_title
+                </div>
+                <div class="panel-body">
+                    <p><strong>Price: </strong>@item.price</p>
+                    <p><strong>Date Update: </strong>@item.update_date</p>
+                    <p><strong>Quantity in stock: </strong>@item.quantity_in_stock</p>
+                    <img class="rounded-2" width="250" height="400" src="~/Content/images/@item.image" alt="hinh thumbnail">
+                </div>
+                <div class="panel-footer clearfix">
+                    <div class="pull-right">
+                        <a href="#" class="btn btn-primary">Order</a>
+                        @Html.ActionLink("Read more...", "Detail", new { id = item.book_id }, new { @class = "btn btn-secondary" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
+        @using (Html.BeginForm("Home", "Book", FormMethod.Get))
+        {
+            <p>
+                Size of page:@Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new
+{
+  @onchange = "this.form.submit();"
+})
+            </p>
+        }
+    </div>
+    <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6 text-right">
+        Page: @(Model.PageCount<Model.PageNumber? 0:Model.PageNumber)/@Model.PageCount
+    </div>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Home", new { page, size = ViewBag.currentSize }))
+
+
+<style>
+    .Menu li {
+        display: inline;
+    }
+
+    #mau-nut a {
+        clear: both;
+        background-color: orange;
+        color: snow;
+    }
+
+        #mau-nut a:hover {
+            background-color: darkcyan;
+            color: snow;
+        }
+
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style-type: none;
+        padding: 0;
+        margin: 16px 0;
+        gap: 8px; /* Spacing between pages */
+    }
+
+        .pagination a {
+            color: black;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 4px; /* Rounded corners */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            /* Page number hover effect */
+            .pagination a:hover {
+                background-color: #f1f1f1;
+            }
+
+        /* Active page (current page) */
+        .pagination li.active a {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
+
+        /* Optional: Previous and Next links */
+        .pagination li a.prev,
+        .pagination li a.next {
+            font-weight: bold;
+        }
+
+        /* Optional: Disabled state for prev/next */
+        .pagination li.disabled a {
+            color: #ccc;
+            pointer-events: none; /* Disable clicking */
+            background-color: #f9f9f9;
+        }
+</style>

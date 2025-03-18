@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Project3.Models.Order>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Order ID</th>
+            <th>Customer ID</th>
+            <th>Order Date</th>
+            <th>Delivery Date</th>
+            <th>Is Ship</th>
+            <th>Is Payment</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.orderID</td>
+                <td>@item.customerID</td>
+                <td>@item.orderDate.ToString("MM/dd/yyyy hh:mm tt")</td>
+                <td>@item.deliveryDate.ToString("MM/dd/yyyy hh:mm tt")</td>
+                <td>@item.isShip</td>
+                <td>@item.isPayment</td>
+                <td>@item.total</td>
+                <td>
+                    @Html.ActionLink("Detail", "Detail", "Order", new { id = item.orderID }, new { @class = "btn btn-default" })
+                </td>
+            </tr>
+        }x
+    </tbody>
+</table>
